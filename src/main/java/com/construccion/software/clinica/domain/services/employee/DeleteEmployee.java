@@ -1,4 +1,4 @@
-package com.construccion.software.clinica.domain.services;
+package com.construccion.software.clinica.domain.services.employee;
 
 import com.construccion.software.clinica.application.exceptions.BusinessException;
 import com.construccion.software.clinica.domain.ports.EmployeePort;

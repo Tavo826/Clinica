@@ -21,6 +21,32 @@ public class EmployeeController {
         this.employeeUseCase = employeeUseCase;
     }
 
+    @GetMapping("/Employees/{documentId}")
+    public ResponseEntity<?> getEmployeeByDocumentId(@PathVariable String documentId) {
+
+        try {
+
+            Employee employee = employeeUseCase.getEmployeeByDocumentId(employeeBuilder.getDocumentId(documentId));
+
+            return ResponseEntity.ok(employee);
+
+        } catch (InputsException ie) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(ie.getMessage());
+
+        } catch (BusinessException be) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(be.getMessage());
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
     @PostMapping("/Employees")
     public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest request) {
 
@@ -58,6 +84,43 @@ public class EmployeeController {
         }
     }
 
+    @PatchMapping("/Employees")
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest request) {
+
+        try {
+
+            Employee employee = employeeBuilder.build(
+                    request.getDocumentId(),
+                    request.getName(),
+                    request.getBirthDate(),
+                    request.getPhone(),
+                    request.getEmail(),
+                    request.getAddress(),
+                    request.getUsername(),
+                    request.getPassword()
+            );
+
+            employeeUseCase.updateEmployee(employee);
+
+            return ResponseEntity.ok(employee);
+
+        } catch (InputsException ie) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(ie.getMessage());
+
+        } catch (BusinessException be) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(be.getMessage());
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("Employees/{documentId}")
     public ResponseEntity<?> deleteEmployee(@PathVariable String documentId) {
 
@@ -66,6 +129,11 @@ public class EmployeeController {
             employeeUseCase.deleteEmployee(employeeBuilder.getDocumentId(documentId));
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        } catch (InputsException ie) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(ie.getMessage());
 
         } catch (BusinessException be) {
             return ResponseEntity

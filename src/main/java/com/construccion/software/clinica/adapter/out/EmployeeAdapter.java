@@ -25,9 +25,15 @@ public class EmployeeAdapter implements EmployeePort {
     }
 
     @Override
-    public void save(Employee user) throws Exception {
+    public void save(Employee employee) throws Exception {
 
-        employeeRepository.save(EmployeeMapper.toEntity(user));
+        employeeRepository.save(EmployeeMapper.toEntity(employee));
+    }
+
+    @Override
+    public Employee update(Employee actualEmployee, Employee updatedEmployee) throws Exception {
+
+
     }
 
     @Override
