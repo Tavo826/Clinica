@@ -31,12 +31,6 @@ public class EmployeeAdapter implements EmployeePort {
     }
 
     @Override
-    public Employee update(Employee actualEmployee, Employee updatedEmployee) throws Exception {
-
-
-    }
-
-    @Override
     public void delete(long documentId) throws Exception {
 
         employeeRepository.deleteByDocumentId(documentId);
