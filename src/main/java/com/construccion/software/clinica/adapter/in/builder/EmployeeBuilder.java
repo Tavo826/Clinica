@@ -35,4 +35,9 @@ public class EmployeeBuilder {
 
         return employee;
     }
+
+    public long getDocumentId(String documentId) throws Exception {
+
+        return employeeValidator.documentValidator(documentId);
+    }
 }
