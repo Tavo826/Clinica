@@ -4,7 +4,6 @@ import com.construccion.software.clinica.application.exceptions.BusinessExceptio
 import com.construccion.software.clinica.domain.models.Employee;
 import com.construccion.software.clinica.domain.models.enums.Role;
 import com.construccion.software.clinica.domain.ports.EmployeePort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

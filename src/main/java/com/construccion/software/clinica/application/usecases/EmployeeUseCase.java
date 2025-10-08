@@ -1,7 +1,6 @@
 package com.construccion.software.clinica.application.usecases;
 
 import com.construccion.software.clinica.domain.models.Employee;
-import com.construccion.software.clinica.domain.models.enums.Role;
 import com.construccion.software.clinica.domain.services.CreateEmployee;
 import com.construccion.software.clinica.domain.services.DeleteEmployee;
 import org.springframework.stereotype.Service;
