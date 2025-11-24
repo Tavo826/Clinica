@@ -1,21 +1,33 @@
-package com.construccion.software.clinica.domain.models;
+package com.construccion.software.clinica.adapter.in.rest.request.employee;
 
-import com.construccion.software.clinica.domain.models.enums.Role;
+public class EmployeeRequest {
 
-import java.time.LocalDate;
-
-public class Employee {
-
-    private long documentId;
+    private String documentId;
     private String name;
     private String surname;
-    private LocalDate birthDate;
-    private long phone;
+    private String birthDate;
+    private String phone;
     private String email;
     private String address;
-    private Role role;
+    private String role;
     private String username;
     private String password;
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
     public String getName() {
         return name;
@@ -23,14 +35,6 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(long documentId) {
-        this.documentId = documentId;
     }
 
     public String getSurname() {
@@ -41,19 +45,11 @@ public class Employee {
         this.surname = surname;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -73,11 +69,11 @@ public class Employee {
         this.address = address;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

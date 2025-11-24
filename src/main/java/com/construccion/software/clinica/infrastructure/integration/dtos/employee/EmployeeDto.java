@@ -1,21 +1,25 @@
-package com.construccion.software.clinica.adapter.in.rest.request;
+package com.construccion.software.clinica.infrastructure.integration.dtos.employee;
 
-public class EmployeeRequest {
+import java.time.LocalDate;
 
-    private String documentId;
+public class EmployeeDto {
+
+    private long documentId;
     private String name;
-    private String birthDate;
-    private String phone;
+    private String surname;
+    private long phone;
     private String email;
     private String address;
+    private LocalDate birthDate;
+    private String role;
     private String username;
     private String password;
 
-    public String getDocumentId() {
+    public long getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(String documentId) {
+    public void setDocumentId(long documentId) {
         this.documentId = documentId;
     }
 
@@ -27,19 +31,19 @@ public class EmployeeRequest {
         this.name = name;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
@@ -57,6 +61,22 @@ public class EmployeeRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getUsername() {

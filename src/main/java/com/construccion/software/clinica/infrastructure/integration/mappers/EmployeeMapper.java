@@ -1,8 +1,11 @@
 package com.construccion.software.clinica.infrastructure.integration.mappers;
 
-import com.construccion.software.clinica.domain.models.Employee;
+import com.construccion.software.clinica.domain.models.employee.Employee;
 import com.construccion.software.clinica.domain.models.enums.Role;
-import com.construccion.software.clinica.infrastructure.integration.dtos.EmployeeDto;
+import com.construccion.software.clinica.infrastructure.integration.dtos.employee.EmployeeDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeMapper {
 
@@ -25,5 +28,19 @@ public class EmployeeMapper {
         employee.setPassword(dto.getPassword());
 
         return employee;
+    }
+
+    public static List<Employee> toDomain(List<EmployeeDto> dtoList) {
+
+        if (dtoList == null) {
+            return null;
+        }
+
+        List<Employee> employeeList = new ArrayList<>();
+        for (EmployeeDto dto : dtoList) {
+            employeeList.add(toDomain(dto));
+        }
+
+        return employeeList;
     }
 }

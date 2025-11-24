@@ -16,7 +16,7 @@ import java.util.Date;
 public class JwtAdapter implements AuthenticationPort {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME = 60 * 1000;
+    private static final long EXPIRATION_TIME = 60 * 60 * 1000;
 
     @Override
     public TokenResponse authenticate(AuthCredentials credentials, String role) {
@@ -73,7 +73,7 @@ public class JwtAdapter implements AuthenticationPort {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 }

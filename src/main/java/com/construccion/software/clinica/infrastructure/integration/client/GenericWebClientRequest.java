@@ -1,13 +1,13 @@
-package com.construccion.software.clinica.infrastructure.integration.helpers;
+package com.construccion.software.clinica.infrastructure.integration.client;
 
 import com.construccion.software.clinica.application.exceptions.ResponseProcessingException;
 import com.construccion.software.clinica.infrastructure.integration.dtos.ErrorResponseDto;
 import com.construccion.software.clinica.infrastructure.integration.mappers.ErrorMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -38,15 +38,49 @@ public class GenericWebClientRequest {
             int statusCode = response.statusCode();
             String body = response.body();
 
+            if (body.isBlank()) {
+                return null;
+            }
+
             try {
                 return objectMapper.readValue(body, responseType);
             } catch (JsonProcessingException jsonProcessingException) {
                 ErrorResponseDto errorResponseDto = objectMapper.readValue(body, ErrorResponseDto.class);
-                throw new ResponseProcessingException("Error response", statusCode, ErrorMapper.toDomain(errorResponseDto), jsonProcessingException);
+                throw new ResponseProcessingException(
+                        "Error response",
+                        statusCode,
+                        ErrorMapper.toDomain(errorResponseDto),
+                        jsonProcessingException);
             }
 
         } catch (IOException e) {
             throw new ResponseProcessingException("Communication error", e);
         }
     }
+
+    public <T> T sendRequest(HttpRequest httpRequest, TypeReference<T> responseType) throws Exception {
+
+        try {
+            HttpResponse<byte[]> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofByteArray());
+
+            int statusCode = response.statusCode();
+            String body = new String(response.body(), StandardCharsets.UTF_8);
+
+            try {
+                return objectMapper.readValue(body, responseType);
+            } catch (JsonProcessingException jsonProcessingException) {
+                ErrorResponseDto errorResponseDto = objectMapper.readValue(body, ErrorResponseDto.class);
+                throw new ResponseProcessingException(
+                        "Error response",
+                        statusCode,
+                        ErrorMapper.toDomain(errorResponseDto),
+                        jsonProcessingException
+                );
+            }
+
+        } catch (IOException | InterruptedException e) {
+            throw new ResponseProcessingException("Communication error", e);
+        }
+    }
+
 }

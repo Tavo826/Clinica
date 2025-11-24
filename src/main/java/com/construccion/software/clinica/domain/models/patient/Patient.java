@@ -1,8 +1,10 @@
-package com.construccion.software.clinica.infrastructure.integration.dtos;
+package com.construccion.software.clinica.domain.models.patient;
+
+import com.construccion.software.clinica.domain.models.enums.Gender;
 
 import java.time.LocalDate;
 
-public class EmployeeDto {
+public class Patient {
 
     private long documentId;
     private String name;
@@ -11,9 +13,11 @@ public class EmployeeDto {
     private long phone;
     private String email;
     private String address;
-    private String role;
-    private String username;
-    private String password;
+    private int age;
+    private Gender gender;
+    private EmergencyContact emergencyContact;
+    private HealthInsurance healthInsurance;
+    private HealthDetail healthDetail;
 
     public long getDocumentId() {
         return documentId;
@@ -71,27 +75,43 @@ public class EmployeeDto {
         this.address = address;
     }
 
-    public String getRole() {
-        return role;
+    public int getAge() {
+        return age;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public String getUsername() {
-        return username;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
-    public String getPassword() {
-        return password;
+    public EmergencyContact getEmergencyContact() {
+        return emergencyContact;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public HealthInsurance getHealthInsurance() {
+        return healthInsurance;
+    }
+
+    public void setHealthInsurance(HealthInsurance healthInsurance) {
+        this.healthInsurance = healthInsurance;
+    }
+
+    public HealthDetail getHealthDetail() {
+        return healthDetail;
+    }
+
+    public void setHealthDetail(HealthDetail healthDetail) {
+        this.healthDetail = healthDetail;
     }
 }

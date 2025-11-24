@@ -1,9 +1,9 @@
 package com.construccion.software.clinica.domain.services;
 
 import com.construccion.software.clinica.application.exceptions.BusinessException;
-import com.construccion.software.clinica.domain.models.Employee;
 import com.construccion.software.clinica.domain.models.auth.AuthCredentials;
 import com.construccion.software.clinica.domain.models.auth.TokenResponse;
+import com.construccion.software.clinica.domain.models.employee.Employee;
 import com.construccion.software.clinica.domain.ports.AuthenticationPort;
 import com.construccion.software.clinica.domain.ports.EmployeePort;
 import org.springframework.stereotype.Service;
