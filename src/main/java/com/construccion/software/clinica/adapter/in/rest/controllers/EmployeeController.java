@@ -1,16 +1,19 @@
 package com.construccion.software.clinica.adapter.in.rest.controllers;
 
 import com.construccion.software.clinica.adapter.in.builder.EmployeeBuilder;
-import com.construccion.software.clinica.adapter.in.rest.request.EmployeeRequest;
-import com.construccion.software.clinica.application.exceptions.BusinessException;
-import com.construccion.software.clinica.application.exceptions.InputsException;
+import com.construccion.software.clinica.adapter.in.rest.request.employee.EmployeeRequest;
 import com.construccion.software.clinica.application.usecases.EmployeeUseCase;
-import com.construccion.software.clinica.domain.models.Employee;
+import com.construccion.software.clinica.domain.models.employee.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("api/employees")
+@PreAuthorize("hasRole('HUMAN_RESOURCE')")
 public class EmployeeController {
 
     private final EmployeeBuilder employeeBuilder;
@@ -21,61 +24,72 @@ public class EmployeeController {
         this.employeeUseCase = employeeUseCase;
     }
 
-    @PostMapping("/Employees")
-    public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest request) {
+    @GetMapping
+    public ResponseEntity<?> getAllEmployees() throws Exception {
 
-        try {
-            Employee employee = employeeBuilder.build(
-                    request.getDocumentId(),
-                    request.getName(),
-                    request.getBirthDate(),
-                    request.getPhone(),
-                    request.getEmail(),
-                    request.getAddress(),
-                    request.getUsername(),
-                    request.getPassword()
-            );
+        List<Employee> employeeList = employeeUseCase.getAllEmployees();
 
-            employeeUseCase.createEmployee(employee);
-
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(employee);
-
-        } catch (InputsException ie) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(ie.getMessage());
-
-        } catch (BusinessException be) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(be.getMessage());
-
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
+        return ResponseEntity.ok(employeeList);
     }
 
-    @DeleteMapping("Employees/{documentId}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable String documentId) {
+    @GetMapping("/{documentId}")
+    public ResponseEntity<?> getEmployeeByDocumentId(@PathVariable String documentId) throws Exception {
 
-        try {
+        Employee employee = employeeUseCase.getEmployeeByDocumentId(employeeBuilder.getDocumentId(documentId));
 
-            employeeUseCase.deleteEmployee(employeeBuilder.getDocumentId(documentId));
+        return ResponseEntity.ok(employee);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
-        } catch (BusinessException be) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(be.getMessage());
+    @PostMapping()
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest request) throws Exception {
 
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
+        Employee employee = employeeBuilder.build(
+                request.getDocumentId(),
+                request.getSurname(),
+                request.getName(),
+                request.getBirthDate(),
+                request.getPhone(),
+                request.getEmail(),
+                request.getAddress(),
+                request.getRole(),
+                request.getUsername(),
+                request.getPassword()
+        );
+
+        Employee createdEmployee = employeeUseCase.createEmployee(employee);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createdEmployee);
+    }
+
+    @PatchMapping()
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest request) throws Exception {
+
+        Employee employee = employeeBuilder.build(
+                request.getDocumentId(),
+                request.getName(),
+                request.getSurname(),
+                request.getBirthDate(),
+                request.getPhone(),
+                request.getEmail(),
+                request.getAddress(),
+                request.getRole(),
+                request.getUsername(),
+                request.getPassword()
+        );
+
+        Employee updatedEmployee = employeeUseCase.updateEmployee(employee);
+
+        return ResponseEntity.ok(updatedEmployee);
+    }
+
+    @DeleteMapping("/{documentId}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable String documentId) throws Exception {
+
+        employeeUseCase.deleteEmployee(employeeBuilder.getDocumentId(documentId));
+
+        return ResponseEntity.noContent().build();
+
     }
 }
