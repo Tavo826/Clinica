@@ -18,7 +18,7 @@ public class GetOrder {
         this.orderPort = orderPort;
     }
 
-    public Order getOrderByOrderNumber(long id) throws Exception {
+    public Order getOrderByPatientId(long id) throws Exception {
 
         List<OrderDiagnosticAssistance> orderDiagnosticAssistanceList = getOrderDiagnosticAssistanceByPatientId(id);
         List<OrderMedicine> orderMedicineList = getOrderMedicineByPatientId(id);

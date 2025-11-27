@@ -4,6 +4,9 @@ import com.construccion.software.clinica.domain.models.employee.Employee;
 import com.construccion.software.clinica.domain.models.invoice.Invoice;
 import com.construccion.software.clinica.domain.models.invoice.InvoiceDetails;
 import com.construccion.software.clinica.domain.models.invoice.Payment;
+import com.construccion.software.clinica.domain.models.order.OrderDiagnosticAssistance;
+import com.construccion.software.clinica.domain.models.order.OrderMedicine;
+import com.construccion.software.clinica.domain.models.order.OrderProcedure;
 import com.construccion.software.clinica.domain.models.patient.Patient;
 import com.construccion.software.clinica.domain.ports.EmployeePort;
 import com.construccion.software.clinica.domain.ports.InvoicePort;
@@ -49,12 +52,11 @@ public class GetInvoice {
 
         invoice.setDetails(invoiceDetails);
 
-        //TODO
-        var total = BigDecimal.valueOf(1000000);
+        BigDecimal totalInvoice = getTotalInvoice(invoice.getPatientId());
         Payment payment = getPaymentValues(
                 invoice.getPatientId(),
                 invoiceDetails.getPatient().getHealthInsurance().getPolicyValidityDays(),
-                total);
+                totalInvoice);
 
         invoice.setPayment(payment);
 
@@ -100,5 +102,39 @@ public class GetInvoice {
         payment.setTotalPayment(total);
 
         return payment;
+    }
+
+    private BigDecimal getTotalInvoice(long id) throws Exception {
+        List<OrderDiagnosticAssistance> orderDiagnosticAssistanceList = getOrderDiagnosticAssistanceByPatientId(id);
+        List<OrderMedicine> orderMedicineList = getOrderMedicineByPatientId(id);
+        List<OrderProcedure> orderProcedureList = getOrderProcedureByPatientId(id);
+
+        BigDecimal diagnosticTotal = orderDiagnosticAssistanceList.stream()
+                .map(OrderDiagnosticAssistance::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal medicineTotal = orderMedicineList.stream()
+                .map(OrderMedicine::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal procedureTotal = orderProcedureList.stream()
+                .map(OrderProcedure::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return diagnosticTotal
+                .add(medicineTotal)
+                .add(procedureTotal);
+    }
+
+    private List<OrderDiagnosticAssistance> getOrderDiagnosticAssistanceByPatientId(long id) throws Exception {
+        return orderPort.findOrderDiagnosticAssistanceByPatientId(id);
+    }
+
+    private List<OrderMedicine> getOrderMedicineByPatientId(long id) throws Exception {
+        return orderPort.findOrderMedicineByPatientId(id);
+    }
+
+    private List<OrderProcedure> getOrderProcedureByPatientId(long id) throws Exception {
+        return orderPort.findOrderProcedureByPatientId(id);
     }
 }

@@ -12,8 +12,10 @@ public class OrderDiagnosticAssistance{
     private long itemNumber;
     private LocalDate creationDate;
     private String diagnosticAssistanceName;
-    private Integer quantity;
+    private String quantity;
     private BigDecimal price;
+    private boolean requiresSpecialistAssistance;
+    private long specialistId;
 
     public String getId() {
         return id;
@@ -71,11 +73,11 @@ public class OrderDiagnosticAssistance{
         this.diagnosticAssistanceName = diagnosticAssistanceName;
     }
 
-    public Integer getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -85,5 +87,21 @@ public class OrderDiagnosticAssistance{
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public boolean isRequiresSpecialistAssistance() {
+        return requiresSpecialistAssistance;
+    }
+
+    public void setRequiresSpecialistAssistance(boolean requiresSpecialistAssistance) {
+        this.requiresSpecialistAssistance = requiresSpecialistAssistance;
+    }
+
+    public long getSpecialistId() {
+        return specialistId;
+    }
+
+    public void setSpecialistId(long specialistId) {
+        this.specialistId = specialistId;
     }
 }

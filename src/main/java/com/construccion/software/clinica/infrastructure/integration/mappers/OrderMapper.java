@@ -14,7 +14,7 @@ public class OrderMapper {
 
     public static List<OrderDiagnosticAssistance> toDomainOrderDiagnosticAssistance(List<OrderDiagnosticAssistanceDto> dtoList) {
 
-        if (dtoList == null || dtoList.isEmpty()) {
+        if (dtoList == null) {
             return null;
         }
 
@@ -28,7 +28,7 @@ public class OrderMapper {
 
     public static List<OrderMedicine> toDomainOrderMedicine(List<OrderMedicineDto> dtoList) {
 
-        if (dtoList == null || dtoList.isEmpty()) {
+        if (dtoList == null) {
             return null;
         }
 
@@ -42,7 +42,7 @@ public class OrderMapper {
 
     public static List<OrderProcedure> toDomainOrderProcedure(List<OrderProcedureDto> dtoList) {
 
-        if (dtoList == null || dtoList.isEmpty()) {
+        if (dtoList == null) {
             return null;
         }
 
@@ -68,6 +68,8 @@ public class OrderMapper {
         order.setDiagnosticAssistanceName(dto.getDiagnosticAssistanceName());
         order.setQuantity(dto.getQuantity());
         order.setPrice(dto.getPrice());
+        order.setRequiresSpecialistAssistance(dto.isRequiresSpecialistAssistance());
+        order.setSpecialistId(dto.getSpecialistId());
 
         return order;
     }
@@ -108,65 +110,11 @@ public class OrderMapper {
         order.setPrice(dto.getPrice());
         order.setRequiresSpecialistAssistance(dto.isRequiresSpecialistAssistance());
         order.setSpecialistId(dto.getSpecialistId());
+        order.setBloodPressure(dto.getBloodPressure());
+        order.setTemperature(dto.getTemperature());
+        order.setPulse(dto.getPulse());
+        order.setBloodOxygenLevel(dto.getBloodOxygenLevel());
 
         return order;
-    }
-
-    public static OrderDiagnosticAssistanceDto toEntity(OrderDiagnosticAssistance order) {
-
-        if (order == null) return null;
-
-        OrderDiagnosticAssistanceDto entity = new OrderDiagnosticAssistanceDto();
-        entity.setId(order.getId());
-        entity.setOrderNumber(order.getOrderNumber());
-        entity.setPatientId(order.getPatientId());
-        entity.setEmployeeId(order.getEmployeeId());
-        entity.setItemNumber(order.getItemNumber());
-        entity.setCreationDate(order.getCreationDate());
-        entity.setDiagnosticAssistanceName(order.getDiagnosticAssistanceName());
-        entity.setQuantity(order.getQuantity());
-        entity.setPrice(order.getPrice());
-
-        return entity;
-    }
-
-    public static OrderMedicineDto toEntity(OrderMedicine order) {
-
-        if (order == null) return null;
-
-        OrderMedicineDto entity = new OrderMedicineDto();
-        entity.setId(order.getId());
-        entity.setOrderNumber(order.getOrderNumber());
-        entity.setPatientId(order.getPatientId());
-        entity.setEmployeeId(order.getEmployeeId());
-        entity.setItemNumber(order.getItemNumber());
-        entity.setCreationDate(order.getCreationDate());
-        entity.setMedicineName(order.getMedicineName());
-        entity.setDose(order.getDose());
-        entity.setTreatmentDuration(order.getTreatmentDuration());
-        entity.setPrice(order.getPrice());
-
-        return entity;
-    }
-
-    public static OrderProcedureDto toEntity(OrderProcedure order) {
-
-        if (order == null) return null;
-
-        OrderProcedureDto entity = new OrderProcedureDto();
-        entity.setId(order.getId());
-        entity.setOrderNumber(order.getOrderNumber());
-        entity.setPatientId(order.getPatientId());
-        entity.setEmployeeId(order.getEmployeeId());
-        entity.setItemNumber(order.getItemNumber());
-        entity.setCreationDate(order.getCreationDate());
-        entity.setProcedureName(order.getProcedureName());
-        entity.setRepetitionNumber(order.getRepetitionNumber());
-        entity.setRepetitionFrequency(order.getRepetitionFrequency());
-        entity.setPrice(order.getPrice());
-        entity.setRequiresSpecialistAssistance(order.isRequiresSpecialistAssistance());
-        entity.setSpecialistId(order.getSpecialistId());
-
-        return entity;
     }
 }

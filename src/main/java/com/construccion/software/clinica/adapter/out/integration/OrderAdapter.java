@@ -65,7 +65,7 @@ public class OrderAdapter implements OrderPort {
     @Override
     public List<OrderProcedure> findOrderProcedureByPatientId(long id) throws Exception {
 
-        URI getByIdUri = URI.create(Order_URI + "/procedure/patients" + id);
+        URI getByIdUri = URI.create(Order_URI + "/procedure/patients/" + id);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(getByIdUri)

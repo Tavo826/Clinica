@@ -17,6 +17,10 @@ public class OrderProcedure{
     private BigDecimal price;
     private boolean requiresSpecialistAssistance;
     private long specialistId;
+    private String bloodPressure;
+    private String temperature;
+    private String pulse;
+    private String bloodOxygenLevel;
 
     public String getId() {
         return id;
@@ -112,5 +116,37 @@ public class OrderProcedure{
 
     public void setSpecialistId(long specialistId) {
         this.specialistId = specialistId;
+    }
+
+    public String getBloodPressure() {
+        return bloodPressure;
+    }
+
+    public void setBloodPressure(String bloodPressure) {
+        this.bloodPressure = bloodPressure;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
+    public String getPulse() {
+        return pulse;
+    }
+
+    public void setPulse(String pulse) {
+        this.pulse = pulse;
+    }
+
+    public String getBloodOxygenLevel() {
+        return bloodOxygenLevel;
+    }
+
+    public void setBloodOxygenLevel(String bloodOxygenLevel) {
+        this.bloodOxygenLevel = bloodOxygenLevel;
     }
 }

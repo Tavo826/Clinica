@@ -31,8 +31,8 @@ public class OrderValidator extends SimpleValidator {
         return stringValidator("nombre de la asistencia diagnóstica", value);
     }
 
-    public Integer quantityValidator(String value) throws Exception {
-        return integerValidator("cantidad", value);
+    public String quantityValidator(String value) throws Exception {
+        return stringValidator("cantidad", value);
     }
 
     public BigDecimal priceValidator(String value) throws Exception {
@@ -61,5 +61,21 @@ public class OrderValidator extends SimpleValidator {
 
     public String repetitionFrequencyValidator(String value) throws Exception {
         return stringValidator("frecuencia de repetición", value);
+    }
+
+    public String bloodPressureValidator(String value) throws Exception {
+        return stringValidator("presión sanguínea", value);
+    }
+
+    public String temperatureValidator(String value) throws Exception {
+        return stringValidator("temperatura", value);
+    }
+
+    public String pulseValidator(String value) throws Exception {
+        return stringValidator("pulso", value);
+    }
+
+    public String bloodOxygenValidator(String value) throws Exception {
+        return stringValidator("nivel de oxígeno en sangre", value);
     }
 }

@@ -24,7 +24,7 @@ public class PatientController {
     }
 
     @GetMapping("/{documentId}")
-    @PreAuthorize("hasRole('NURSE') or hasRole('ADMINISTRATIVE')")
+    @PreAuthorize("hasRole('NURSE') or hasRole('ADMINISTRATIVE') or hasRole('DOCTOR')")
     public ResponseEntity<Patient> getPatient(@PathVariable String documentId) throws Exception {
 
         Patient patient = patientUseCase.getPatientByDocumentId(patientBuilder.getDocumentId(documentId));

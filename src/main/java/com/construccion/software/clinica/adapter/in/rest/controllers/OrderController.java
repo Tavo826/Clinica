@@ -25,10 +25,10 @@ public class OrderController {
         this.orderUseCase = orderUseCase;
     }
 
-    @GetMapping("/{orderNumber}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getOrderByOrderPatientId(@PathVariable String id) throws Exception {
 
-        Order order = orderUseCase.getOrderByOrderNumber(orderBuilder.getPatientId(id));
+        Order order = orderUseCase.getOrderByPatientId(orderBuilder.getPatientId(id));
 
         return ResponseEntity.status(HttpStatus.OK).body(order);
     }
@@ -36,21 +36,21 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody OrderRequest request) throws Exception {
 
-        if (!request.getDiagnosticAssistanceName().isEmpty()) {
+        if (!request.getOrderDiagnosticAssistanceList().isEmpty()) {
 
             OrderDiagnosticAssistance order = orderBuilder.buildOrderDiagnosticAssistance(request);
 
             orderUseCase.createOrder(order);
         }
 
-        if (!request.getMedicineName().isEmpty()) {
+        if (!request.getOrderMedicineList().isEmpty()) {
 
             OrderMedicine order = orderBuilder.buildOrderMedicine(request);
 
             orderUseCase.createOrder(order);
         }
 
-        if (!request.getProcedureName().isEmpty()) {
+        if (!request.getOrderProcedureList().isEmpty()) {
 
             OrderProcedure order = orderBuilder.buildOrderProcedure(request);
 

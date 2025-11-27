@@ -6,6 +6,7 @@ import com.construccion.software.clinica.infrastructure.integration.client.Gener
 import com.construccion.software.clinica.infrastructure.integration.dtos.invoice.InvoiceDto;
 import com.construccion.software.clinica.infrastructure.integration.mappers.InvoiceMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -17,9 +18,11 @@ public class InvoiceAdapter implements InvoicePort {
 
     private static final String Invoice_URI = "http://localhost:8083/api/invoices";
     private final GenericWebClientRequest webClientRequest;
+    private final ObjectMapper objectMapper;
 
-    public InvoiceAdapter(GenericWebClientRequest webClientRequest) {
+    public InvoiceAdapter(GenericWebClientRequest webClientRequest, ObjectMapper objectMapper) {
         this.webClientRequest = webClientRequest;
+        this.objectMapper = objectMapper;
     }
 
 
@@ -53,5 +56,23 @@ public class InvoiceAdapter implements InvoicePort {
         List<InvoiceDto> invoiceList = webClientRequest.sendRequest(request, new TypeReference<List<InvoiceDto>>() {});
 
         return InvoiceMapper.toDomain(invoiceList);
+    }
+
+    @Override
+    public Invoice save(Invoice invoice) throws Exception {
+
+        URI saveUri = URI.create(Invoice_URI);
+
+        String requestBody = objectMapper.writeValueAsString(invoice);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(saveUri)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        InvoiceDto invoiceDto = webClientRequest.sendRequest(request, InvoiceDto.class);
+
+        return InvoiceMapper.toDomain(invoiceDto);
     }
 }
