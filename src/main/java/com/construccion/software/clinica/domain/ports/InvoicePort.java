@@ -8,4 +8,5 @@ public interface InvoicePort {
 
     Invoice findByd(long invoiceId) throws Exception;
     List<Invoice> getAllByPatientId(long patientId) throws Exception;
+    Invoice save(Invoice invoice) throws Exception;
 }

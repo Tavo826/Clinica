@@ -6,4 +6,5 @@ public interface RecordPort {
 
     MedicalRecord findById(long documentId) throws Exception;
     MedicalRecord save(MedicalRecord record) throws Exception;
+    MedicalRecord update(long documentId, MedicalRecord record) throws Exception;
 }

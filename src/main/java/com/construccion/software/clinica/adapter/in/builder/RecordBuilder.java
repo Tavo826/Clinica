@@ -39,7 +39,7 @@ public class RecordBuilder {
         List<Procedure> procedureList = new ArrayList<>();
         List<DiagnosticAssistance> diagnosticAssistanceList = new ArrayList<>();
 
-        if (!request.getMedicineList().isEmpty()) {
+        if (request.getMedicineList() != null && !request.getMedicineList().isEmpty()) {
             for (var medicineRequest: request.getMedicineList()) {
                 Medicine medicine = new Medicine();
                 medicine.setOrderNumber(recordValidator.orderNumberValidator(medicineRequest.getOrderNumber()));
@@ -52,7 +52,7 @@ public class RecordBuilder {
             };
         }
 
-        if (!request.getProcedureList().isEmpty()) {
+        if (request.getProcedureList() != null && !request.getProcedureList().isEmpty()) {
             for (var procedureRequest: request.getProcedureList()) {
                 Procedure procedure = new Procedure();
                 procedure.setOrderNumber(recordValidator.orderNumberValidator(procedureRequest.getOrderNumber()));
@@ -67,7 +67,7 @@ public class RecordBuilder {
             }
         }
 
-        if (!request.getDiagnosticAssistanceList().isEmpty()) {
+        if (request.getDiagnosticAssistanceList() != null && !request.getDiagnosticAssistanceList().isEmpty()) {
             for (var diagnosticAssistanceRequest: request.getDiagnosticAssistanceList()) {
                 DiagnosticAssistance diagnosticAssistance = new DiagnosticAssistance();
                 diagnosticAssistance.setOrderNumber(recordValidator.orderNumberValidator(diagnosticAssistanceRequest.getOrderNumber()));

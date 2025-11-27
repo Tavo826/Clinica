@@ -56,4 +56,22 @@ public class RecordAdapter implements RecordPort {
 
         return RecordMapper.toDomain(medicalRecordDto);
     }
+
+    @Override
+    public MedicalRecord update(long documentId, MedicalRecord record) throws Exception {
+
+        URI updateUri = URI.create(Record_URI + "/" + documentId);
+
+        String requestBody = objectMapper.writeValueAsString(record);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(updateUri)
+                .header("Content-Type", "application/json")
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        MedicalRecordDto medicalRecordDto = webClientRequest.sendRequest(request, MedicalRecordDto.class);
+
+        return RecordMapper.toDomain(medicalRecordDto);
+    }
 }

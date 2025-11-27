@@ -1,65 +1,26 @@
-package com.construccion.software.clinica.infrastructure.integration.dtos.order;
+package com.construccion.software.clinica.adapter.in.rest.request.order;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+public class OrderProcedureRequest {
 
-public class OrderProcedureDto {
-
-    private String id;
-    private String orderNumber;
-    private long patientId;
-    private long employeeId;
-    private long itemNumber;
+    private String itemId;
     private String procedureName;
-    private Integer repetitionNumber;
+    private String repetitionNumber;
     private String repetitionFrequency;
-    private BigDecimal price;
     private boolean requiresSpecialistAssistance;
-    private long specialistId;
-    private LocalDate creationDate;
+    private String specialistId;
+    private String price;
     private String bloodPressure;
     private String temperature;
     private String pulse;
     private String bloodOxygenLevel;
+    private String creationDate;
 
-    public String getId() {
-        return id;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public long getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
-    }
-
-    public long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public long getItemNumber() {
-        return itemNumber;
-    }
-
-    public void setItemNumber(long itemNumber) {
-        this.itemNumber = itemNumber;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getProcedureName() {
@@ -70,11 +31,11 @@ public class OrderProcedureDto {
         this.procedureName = procedureName;
     }
 
-    public Integer getRepetitionNumber() {
+    public String getRepetitionNumber() {
         return repetitionNumber;
     }
 
-    public void setRepetitionNumber(Integer repetitionNumber) {
+    public void setRepetitionNumber(String repetitionNumber) {
         this.repetitionNumber = repetitionNumber;
     }
 
@@ -86,14 +47,6 @@ public class OrderProcedureDto {
         this.repetitionFrequency = repetitionFrequency;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public boolean isRequiresSpecialistAssistance() {
         return requiresSpecialistAssistance;
     }
@@ -102,20 +55,20 @@ public class OrderProcedureDto {
         this.requiresSpecialistAssistance = requiresSpecialistAssistance;
     }
 
-    public long getSpecialistId() {
+    public String getSpecialistId() {
         return specialistId;
     }
 
-    public void setSpecialistId(long specialistId) {
+    public void setSpecialistId(String specialistId) {
         this.specialistId = specialistId;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public String getPrice() {
+        return price;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getBloodPressure() {
@@ -148,5 +101,13 @@ public class OrderProcedureDto {
 
     public void setBloodOxygenLevel(String bloodOxygenLevel) {
         this.bloodOxygenLevel = bloodOxygenLevel;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 }

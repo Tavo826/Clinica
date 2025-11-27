@@ -4,7 +4,7 @@ public class Procedure {
 
     private String orderNumber;
     private String procedureId;
-    private String repetitionNumber;
+    private long repetitionNumber;
     private String repetitionFrequency;
     private boolean requiresSpecialistAssistance;
     private long specialistId;
@@ -26,11 +26,11 @@ public class Procedure {
         this.procedureId = procedureId;
     }
 
-    public String getRepetitionNumber() {
+    public long getRepetitionNumber() {
         return repetitionNumber;
     }
 
-    public void setRepetitionNumber(String repetitionNumber) {
+    public void setRepetitionNumber(long repetitionNumber) {
         this.repetitionNumber = repetitionNumber;
     }
 

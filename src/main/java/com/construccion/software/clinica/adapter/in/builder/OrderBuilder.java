@@ -22,10 +22,11 @@ public class OrderBuilder {
         order.setOrderNumber(orderValidator.orderNumberValidator(request.getOrderNumber()));
         order.setPatientId(orderValidator.patientIdValidator(request.getPatientId()));
         order.setEmployeeId(orderValidator.employeeIdValidator(request.getEmployeeId()));
-        order.setItemNumber(orderValidator.itemNumberValidator(request.getItemNumber()));
-        order.setDiagnosticAssistanceName(orderValidator.diagnosticAssistanceNameValidator(request.getDiagnosticAssistanceName()));
-        order.setQuantity(orderValidator.quantityValidator(request.getQuantity()));
-        order.setPrice(orderValidator.priceValidator(request.getPrice()));
+        order.setDiagnosticAssistanceName(orderValidator.diagnosticAssistanceNameValidator(request.getOrderDiagnosticAssistanceList().get(0).getDiagnosticAssistanceName()));
+        order.setQuantity(orderValidator.quantityValidator(request.getOrderDiagnosticAssistanceList().get(0).getQuantity()));
+        order.setPrice(orderValidator.priceValidator(request.getOrderDiagnosticAssistanceList().get(0).getPrice()));
+        order.setRequiresSpecialistAssistance(request.getOrderDiagnosticAssistanceList().get(0).isRequiresSpecialistAssistance());
+        order.setSpecialistId(orderValidator.employeeIdValidator(request.getOrderDiagnosticAssistanceList().get(0).getSpecialistId()));
 
         return order;
     }
@@ -36,11 +37,10 @@ public class OrderBuilder {
         order.setOrderNumber(orderValidator.orderNumberValidator(request.getOrderNumber()));
         order.setPatientId(orderValidator.patientIdValidator(request.getPatientId()));
         order.setEmployeeId(orderValidator.employeeIdValidator(request.getEmployeeId()));
-        order.setItemNumber(orderValidator.itemNumberValidator(request.getItemNumber()));
-        order.setMedicineName(orderValidator.medicineNameValidator(request.getMedicineName()));
-        order.setDose(orderValidator.doseValidator(request.getDose()));
-        order.setTreatmentDuration(orderValidator.treatmentDurationValidator(request.getTreatmentDuration()));
-        order.setPrice(orderValidator.priceValidator(request.getPrice()));
+        order.setMedicineName(orderValidator.medicineNameValidator(request.getOrderMedicineList().get(0).getMedicineName()));
+        order.setDose(orderValidator.doseValidator(request.getOrderMedicineList().get(0).getDose()));
+        order.setTreatmentDuration(orderValidator.treatmentDurationValidator(request.getOrderMedicineList().get(0).getTreatmentDuration()));
+        order.setPrice(orderValidator.priceValidator(request.getOrderMedicineList().get(0).getPrice()));
 
         return order;
     }
@@ -51,13 +51,16 @@ public class OrderBuilder {
         order.setOrderNumber(orderValidator.orderNumberValidator(request.getOrderNumber()));
         order.setPatientId(orderValidator.patientIdValidator(request.getPatientId()));
         order.setEmployeeId(orderValidator.employeeIdValidator(request.getEmployeeId()));
-        order.setItemNumber(orderValidator.itemNumberValidator(request.getItemNumber()));
-        order.setProcedureName(orderValidator.procedureNameValidator(request.getProcedureName()));
-        order.setRepetitionNumber(orderValidator.repetitionNumberValidator(request.getRepetitionNumber()));
-        order.setRepetitionFrequency(orderValidator.repetitionFrequencyValidator(request.getRepetitionFrequency()));
-        order.setPrice(orderValidator.priceValidator(request.getPrice()));
-        order.setRequiresSpecialistAssistance(request.isRequiresSpecialistAssistance());
-        order.setSpecialistId(orderValidator.employeeIdValidator(request.getSpecialistId()));
+        order.setProcedureName(orderValidator.procedureNameValidator(request.getOrderProcedureList().get(0).getProcedureName()));
+        order.setRepetitionNumber(orderValidator.repetitionNumberValidator(request.getOrderProcedureList().get(0).getRepetitionNumber()));
+        order.setRepetitionFrequency(orderValidator.repetitionFrequencyValidator(request.getOrderProcedureList().get(0).getRepetitionFrequency()));
+        order.setPrice(orderValidator.priceValidator(request.getOrderProcedureList().get(0).getPrice()));
+        order.setRequiresSpecialistAssistance(request.getOrderProcedureList().get(0).isRequiresSpecialistAssistance());
+        order.setSpecialistId(orderValidator.employeeIdValidator(request.getOrderProcedureList().get(0).getSpecialistId()));
+        order.setBloodPressure(orderValidator.bloodPressureValidator(request.getOrderProcedureList().get(0).getBloodPressure()));
+        order.setTemperature(orderValidator.temperatureValidator(request.getOrderProcedureList().get(0).getTemperature()));
+        order.setPulse(orderValidator.pulseValidator(request.getOrderProcedureList().get(0).getPulse()));
+        order.setBloodOxygenLevel(orderValidator.bloodOxygenValidator(request.getOrderProcedureList().get(0).getBloodOxygenLevel()));
 
         return order;
     }

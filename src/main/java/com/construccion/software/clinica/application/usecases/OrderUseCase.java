@@ -19,9 +19,9 @@ public class OrderUseCase {
         this.getOrder = getOrder;
     }
 
-    public Order getOrderByOrderNumber(long id) throws Exception {
+    public Order getOrderByPatientId(long id) throws Exception {
 
-        return getOrder.getOrderByOrderNumber(id);
+        return getOrder.getOrderByPatientId(id);
     }
 
     public void createOrder(OrderDiagnosticAssistance order) throws Exception {
